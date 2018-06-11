@@ -17,4 +17,14 @@ router.get('/view', (req, res) => {
     })
 })
 
+router.get('/assignments', (req, res) => {
+  db.assignments()
+    .then(chores => {
+      res.render('./partials/assignment', {chores})
+    })
+    .catch(err => {
+      res.send(err.message).status(500)
+    })
+})
+
 module.exports = router
