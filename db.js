@@ -4,7 +4,11 @@ const db = knex(config)
 
 module.exports = {
   getWombles,
-  getWombleInfo
+  getWombleInfo,
+  getWombleRubbish,
+  addCharacteristic,
+  getChar,
+  addWomble
 }
 
 function getWombles () {
@@ -17,4 +21,29 @@ function getWombleInfo (id) {
     .join('characteristics', 'characteristics.id', 'wombles.characteristic_id')
     .select('wombles.name', 'characteristics.description')
     .where('wombles.id', id)
+}
+
+function getWombleRubbish () {
+  return db('wombles')
+    .join('rubbish', 'rubbish.wombles_id', 'wombles.id')
+    // ('name of table', 'common columns of both tables), ('name of both tables')
+    .select('wombles.name as wombleName', 'rubbish.name as rubbishName')
+}
+
+function addCharacteristic (description) {
+  return db('characteristics')
+    .insert({description: description})
+}
+
+function getChar (description) {
+  return db('characteristics')
+    .select()
+    .where('characteristics.description', description)
+    .first()
+}
+
+function addWomble (name, id) {
+  console.log(name, id)
+  return db('wombles')
+    .insert({name: name, characteristic_id: id})
 }
