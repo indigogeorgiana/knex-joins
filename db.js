@@ -3,9 +3,11 @@ const config = require('./knexfile').development
 const db = knex(config)
 
 module.exports = {
+  addWomble,
   listWombles,
   viewWombles,
-  assignRubbish
+  assignRubbish,
+  getCharacteristics
 }
 
 function listWombles () {
@@ -25,8 +27,14 @@ function assignRubbish () {
     .select('wombles.name as womblesName', 'rubbish.name as rubbishName')
 }
 
-function addWomble (newName, newDescription) {
-  return db('wombles', 'characteristics')
-    .insert(name, description)
-    
+function addWomble (newName, newCharacteristic) {
+  return db('wombles')
+    .insert({
+      name: newName,
+      characteristic_id: newCharacteristic
+    })
+}
+
+function getCharacteristics () {
+  return db('characteristics').select()
 }

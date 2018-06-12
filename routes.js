@@ -39,12 +39,19 @@ router.get('/assignments', (req, res) => {
     })
 })
 
+router.get('/add', (req, res) => {
+  db.getCharacteristics()
+    .then(characteristics => {
+      res.render('add', {characteristics})
+    })
+})
+
 router.post('/add', (req, res) => {
   const newName = req.body.name
-  const newDescription = req.body.description
-  db.addWomble(newName, newDescription)
+  const newCharacteristic = req.body.characteristic
+  db.addWomble(newName, newCharacteristic)
     .then(results => {
-      res.render('add', {results})
+      res.redirect('/list')
     })
     .catch(err => {
       res.send(err.message).status(500)
