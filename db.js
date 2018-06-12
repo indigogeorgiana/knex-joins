@@ -10,12 +10,13 @@ module.exports = {
 
 function getWombles () {
   return db('wombles')
-    .select('name', 'id')
+    .select('wombles.name as wombleName', 'wombles.id as wombleId', 'rubbish.name as rubbishName')
+    .join('rubbish', 'wombles.rubbish_id', 'rubbish.id')
 }
 
 function getWomble (id) {
   return db('wombles')
-    .join('characteristics', 'wombles.characteristic_id', 'characteristics.id')
+    .join('characteristics', 'wombles.characteristic_id', '=', 'characteristics.id')
     .select('wombles.name', 'characteristics.description')
     .where('wombles.id', id)
 }

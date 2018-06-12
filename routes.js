@@ -31,4 +31,14 @@ router.get('/view/:id', (req, res) => {
     })
 })
 
+router.get('/assignments', (req, res) => {
+  db.getWombles()
+    .then(results => {
+      res.render('./layouts/assignments', {results})
+    })
+    .catch(err => {
+      res.send(err.message).status(500)
+    })
+})
+
 module.exports = router
