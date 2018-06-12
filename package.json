@@ -25,10 +25,10 @@
   "homepage": "https://github.com/dev-academy-challenges/knex-joins-stories#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "express": "^4.16.2",
+    "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
-    "knex": "^0.14.2",
-    "sqlite3": "^3.1.13"
+    "knex": "^0.14.6",
+    "sqlite3": "^4.0.0"
   },
   "devDependencies": {
     "jest": "^22.1.4",
