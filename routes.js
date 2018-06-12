@@ -17,6 +17,17 @@ router.get('/view', (req, res) => {
     })
 })
 
+router.post('/view', (req, res) => {
+  const names = req.body.names
+  const id = req.body.name
+  console.log(id)
+  db.add(names, id)
+    .then(res.redirect('/view'))
+    .catch(err => {
+      res.send(err.message).status(500)
+    })
+})
+
 router.get('/assignments', (req, res) => {
   db.assignments()
     .then(chores => {

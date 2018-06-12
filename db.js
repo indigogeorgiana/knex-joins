@@ -3,18 +3,24 @@ const config = require('./knexfile').development
 const db = knex(config)
 
 function view () {
-  return db('wombles')
-    .join('characteristics', 'characteristics.id', 'wombles.characteristic_id')
-    .select('wombles.name', 'characteristics.description')
+  return db('wombles as w')
+    .join('characteristics as c', 'c.id', 'w.characteristic_id')
+    .select('w.name', 'c.description', 'c.id')
 }
 
 function assignments () {
-  return db('wombles as w')
-    .join('rubbish as r', 'w.rubbish_id', 'r.id')
-    .select('w.name', 'r.name as chore')
+  return db('wombles')
+    .join('rubbish', 'wombles.rubbish_id', 'rubbish.id')
+    .select('wombles.name', 'rubbish.name as chore')
+}
+
+function add (name, description) {
+  return db('wombles')
+    .insert({'name': name, 'characteristic_id': description})
 }
 
 module.exports = {
   view,
-  assignments
+  assignments,
+  add
 }

@@ -4,3 +4,13 @@
   <li>{{name}}: {{description}}</li>
   {{/each}}
 </ul>
+
+<form method='post' action='/view'>
+  Name: <input type="text" name="names">  
+    <select chariteristics>
+    {{#each results}}
+      <option value="{{id}}" name="name">{{description}}</option>
+    {{/each}}
+  </select> 
+  <input type="submit">
+</form>
