@@ -45,23 +45,22 @@ router.get('/form', (req, res) => {
 router.post('/form', (req, res) => {
   const name = req.body.womblename
   const newChar = req.body.characteristic
-  // addCharacteristic inserts characteristic into the characteristics table
+  // addCharacteristic inserts characteristic into the
+  // characteristics table if the characteristic does not exist yet
+  // after the insert, the insert id will get returned
+  // if it does exist, it will just return the id of the existing
+  // characteristic
   db.addCharacteristic(newChar)
-    .then(() => {
-      db.getChar(newChar)
-        .then((characteristic) => {
-          db.addWomble(name, characteristic.id)
-            .then(() => {
-              res.redirect('/')
-            })
-        })
-        .catch(err => {
-          res.send(err.message).status(500)
-        })
+    .then((id) => {
+      // addWomble takes characteristic from addCharacteristic
+      // and uses it to create a new womble
+      return db.addWomble(name, id)
+    }).then(() => {
+      res.redirect('/')
+    }).catch(err => {
+      // res.send(err.message).status(500)
+      throw err
     })
-  // getCharId looks up the new characteristic's id in the characteristics table
-  // .then((getCharId(newChar))
-  // addWomble takes characteristic from getCharId and uses it to create a new womble
 })
 
 module.exports = router

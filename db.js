@@ -31,8 +31,17 @@ function getWombleRubbish () {
 }
 
 function addCharacteristic (description) {
-  return db('characteristics')
-    .insert({description: description})
+  // check if characteristic already exists in characteristics db
+  return getChar(description)
+    .then((result) => {
+      if (result === undefined) {
+        // if it does exist, insert the new characteristic
+        return db('characteristics')
+          .insert({description: description})
+      } else {
+        return [result.id]
+      }
+    })
 }
 
 function getChar (description) {
