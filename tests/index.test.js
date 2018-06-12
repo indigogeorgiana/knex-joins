@@ -16,6 +16,10 @@ beforeEach(() => {
 // Destroy the database connection after each test.
 afterEach(() => testEnv.cleanup(testDb))
 
+test('All systems go', () => {
+  expect(true).toBeTruthy
+})
+
 test('list wombles', () => {
   const expected = 'WOMBLES!'
   return request(server)
