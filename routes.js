@@ -20,12 +20,15 @@ router.get('/view/:id', (req, res) => {
   const id = Number(req.params.id)
   db.getWomble(id)
     .then(results => {
-      const indivResult = results[0]
-      res.render('./layouts/indiv', {indivResult})
+      const indivResult = {
+        name: results[0].name,
+        description: results[0].description
+      }
+      res.render('./layouts/indiv', indivResult)
     })
     .catch(err => {
       res.send(err.message).status(500)
     })
-
 })
+
 module.exports = router
